@@ -1,0 +1,55 @@
+<div *ngIf="!selectedProduct; else detalle" class="container card">
+  <h1 class="display-4 text-center py-3">Inventario</h1>
+  <div class="pb-3">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Marca</th>
+          <th>Cantidad</th>
+          <th>Categoria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of inventario" (click)="select(producto);">
+          <td>{{producto.nombre}}</td>
+          <td>{{producto.marca}}</td>
+          <td>{{producto.cantidad}}</td>
+          <td>{{producto.categoria}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #detalle>
+  <div class="card w-50 mx-auto">
+    <div class="card-body">
+      <h2 class="card-title display-4">{{selectedProduct.nombre}}</h2>
+      <p class="lead">{{selectedProduct.marca}}</p>
+      <hr class="my-4">
+      <div class="card-text">
+        <form>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" [placeholder]="selectedProduct.categoria" disabled>
+            </div>
+            <div class="col">
+              <input type="text" name="descripcion" class="form-control" [(ngModel)] = "selectedProduct.cantidad" disabled>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-outline-success btn-sm float-right" (click)="sumarProducto()"> ▲ </button>
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-outline-danger btn-sm float-right" (click)="restarProducto()"> ▼ </button>
+              </div>
+          </div>
+          <hr class="my-4">
+          <div>
+            <button type="submit" class="btn btn-info" (click)="productSubmit()">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
